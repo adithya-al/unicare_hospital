@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Medicine - Unicare Pharmacy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body style="background-color: #f8f9fa;">
+  <div class="container my-5">
+
+    <!-- ✅ Success/Error Alert (Initially Hidden) -->
+    <div id="alertBox" class="alert d-none alert-dismissible fade show" role="alert">
+      <span id="alertMessage"></span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <!-- Page Title -->
+    <h3 class="text-center mb-4 fw-bold text-dark" style="font-size: 32px; font-family: Arial, sans-serif;">
+      Medicine Management - Pharmacist
+    </h3>
+
+    <!-- Back to Dashboard -->
+    <div class="mb-3">
+      <a href="pharmasist.html" class="btn btn-outline-primary">
+        ← Back to Dashboard
+      </a>
+    </div>
+
+    <!-- Add Medicine Form -->
+    <div class="bg-white p-4 shadow-sm rounded">
+      <h5 class="fw-semibold mb-4 text-primary">Add New Medicine</h5>
+
+      <form id="medicineForm">
+        <div class="row g-3">
+
+          <!-- Medicine Name -->
+          <div class="col-md-4">
+            <label class="form-label text-muted">Medicine Name</label>
+            <input type="text" name="medName" class="form-control" required minlength="3"  />
+          </div>
+
+          <!-- Generic Name -->
+          <div class="col-md-4">
+            <label class="form-label text-muted">Generic Name</label>
+            <input type="text" name="genericName" class="form-control" required />
+          </div>
+
+          <!-- Company Name -->
+          <div class="col-md-4">
+            <label class="form-label text-muted">Company Name</label>
+            <input type="text" name="companyName" class="form-control" required />
+          </div>
+
+          <!-- Quantity -->
+          <div class="col-md-4">
+            <label class="form-label text-muted">Quantity</label>
+            <input type="number" name="quantity" class="form-control" required min="1" />
+          </div>
+
+          <!-- Unit Type -->
+          <div class="col-md-4">
+            <label class="form-label text-muted">Unit Type</label>
+            <select name="unit" class="form-select" required>
+              <option value="">-- Select Unit --</option>
+              <option value="Tablet">Tablet</option>
+              <option value="Capsule">Capsule</option>
+              <option value="Syrup (ml)">Syrup (ml)</option>
+              <option value="Injection (ml)">Injection (ml)</option>
+              <option value="Ointment (g)">Ointment (g)</option>
+              <option value="Drop (ml)">Drop (ml)</option>
+            </select>
+          </div>
+
+          <!-- Price -->
+          <div class="col-md-4">
+            <label class="form-label text-muted">Price (₹)</label>
+            <input type="number" name="price" class="form-control" required min="0.01" step="0.01" />
+          </div>
+
+          <!-- Date Added -->
+          <div class="col-md-4">
+            <label class="form-label text-muted">Date Added</label>
+            <input type="date" name="addedDate" class="form-control" required />
+          </div>
+
+        </div>
+<div class="mt-4 row">
+  <!-- Left: Reset -->
+  <div class="col-md-4">
+    <button type="reset" class="btn btn-secondary px-4 w-100">
+      Clear
+    </button>
+  </div>
+
+  <!-- Right: Add + View -->
+  <div class="col-md-8 text-end d-flex justify-content-end gap-3">
+    <button type="submit" class="btn btn-success px-4">
+      Add Medicine
+    </button>
+    
+    <a href="medicinelist.html" class="btn btn-info text-white px-4">
+      View All Medicines
+    </a>
+  </div>
+</div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!--  JavaScript for Validation and Storage -->
+  <script>
+    const form = document.getElementById('medicineForm');
+    const alertBox = document.getElementById('alertBox');
+    const alertMessage = document.getElementById('alertMessage');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // prevent actual form submission
+
+      const formData = new FormData(form);
+      const medName = formData.get('medName').trim().toLowerCase();
+
+      let medicineList = JSON.parse(localStorage.getItem('medicines')) || [];
+
+      const exists = medicineList.some(med => med.medName.toLowerCase() === medName);
+
+      if (exists) {
+        showAlert(' This medicine already exists in the list!', 'danger');
+      } else {
+        const newMedicine = Object.fromEntries(formData.entries());
+        medicineList.push(newMedicine);
+        localStorage.setItem('medicines', JSON.stringify(medicineList));
+        form.reset();
+        showAlert(' Medicine has been successfully added to the list!', 'success');
+      }
+    });
+
+    function showAlert(message, type) {
+      alertBox.className = `alert alert-${type} alert-dismissible fade show`;
+      alertMessage.textContent = message;
+      alertBox.classList.remove('d-none');
+    }
+    function showAlert(message, type) {
+  alertBox.className = `alert alert-${type} alert-dismissible fade show`;
+  alertMessage.textContent = message;
+  alertBox.classList.remove('d-none');
+
+  // ⏳ Hide alert after 3 seconds
+  setTimeout(() => {
+    alertBox.classList.add('d-none');
+  }, 3000);
+}
+
+  </script>
+</body>
+</html>
