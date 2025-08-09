@@ -11,41 +11,59 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="style.css" />
 
- <style>
+<style>
+  .header-logo {
+    height: 60px;
+    width: auto;
+  }
+  .cert-logo {
+    height: 30px;
+    width: auto;
+  }
+  .text-blue {
+    color: #1a75ff;
+  }
+  .nav-link:hover {
+    color: white !important;
+    text-decoration: underline;
+  }
+  .specialties-section {
+    background-color: #f4f9fc; 
+    padding: 60px 20px;
+  }
+  .text-custom-blue {
+    color: #0056b3; 
+  }
+  .specialties-section h5 {
+    color: #003d80; 
+    font-weight: 600;
+  }
+  .specialties-section p {
+    color: #444; 
+    line-height: 1.6;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    .container.d-flex {
+      flex-wrap: wrap !important;
+      text-align: center;
+    }
+    .container.d-flex > div {
+      flex: 1 1 100%;
+      justify-content: center !important;
+    }
     .header-logo {
-      height: 60px;
-      width: 80px;
+      height: 50px;
     }
     .cert-logo {
-      height: 40px;
+      height: 25px;
     }
-    .text-blue {
-      color: #1a75ff;
+    .nav-item {
+      text-align: center;
     }
-    .nav-link:hover {
-      color: white !important;
-      text-decoration: underline;
-    }
-    .specialties-section {
-  background-color: #f4f9fc; 
-  padding: 60px 20px;
-}
-
-.text-custom-blue {
-  color: #0056b3; 
-}
-
-.specialties-section h5 {
-  color: #003d80; 
-  font-weight: 600;
-}
-
-.specialties-section p {
-  color: #444; 
-  line-height: 1.6;
-}
-
-  </style>
+  }
+</style>
 </head>
 
 <body>
@@ -88,6 +106,7 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="mainNavbar">
         <ul class="navbar-nav mx-auto gap-4">
           <li class="nav-item"><a class="nav-link fw-bold text-white px-3" href="home.html">Home</a></li>
@@ -95,13 +114,21 @@
           <li class="nav-item"><a class="nav-link fw-bold text-white px-3" href="services.html">Services</a></li>
           <li class="nav-item"><a class="nav-link fw-bold text-white px-3" href="appointment.html">Appointments</a></li>
           <li class="nav-item"><a class="nav-link fw-bold text-white px-3" href="gallery.html">Gallery</a></li>
+
+          <!-- Mobile Logout Button -->
+          <li class="nav-item d-lg-none text-center mt-3">
+            <a href="index.html" class="btn btn-outline-light fw-bold w-100">Logout</a>
+          </li>
         </ul>
       </div>
+
+      <!-- Desktop Logout Button -->
       <div class="d-none d-lg-block">
         <a href="index.html" class="btn btn-outline-light fw-bold">Logout</a>
       </div>
     </div>
   </nav>
+  
   <!-- Services Section -->
   <section class="py-5 bg-light">
     <div class="container">
